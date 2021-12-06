@@ -54,7 +54,7 @@ class MemoryGame extends Component {
         card2.pairMatched = true;
       }
 
-      if(card1.faceUp && card2.faceUp){
+      if (card1.faceUp && card2.faceUp) {
         newPairsTryCount++;
       }
 
@@ -62,8 +62,8 @@ class MemoryGame extends Component {
       currentPair.length = 0; //  // get ready for new pair
     }
 
-    if(this.isGameFinished()){
-        clearInterval(this.timerHandle)
+    if (this.isGameFinished()) {
+      clearInterval(this.timerHandle);
     }
 
     this.setState({
@@ -91,6 +91,7 @@ class MemoryGame extends Component {
         {gameFinished ? <p>Game Finished</p> : ""}
         <p>tries : {pairsTryCount}</p>
         <p>Seconds : {elapsedSeconds}</p>
+        {/* <img src="/images/mango.jpg" alt="" /> */}
       </>
     );
   }
