@@ -31,7 +31,7 @@ class MemoryGame extends Component {
   };
 
   clickHandler = (index) => {
-    const { cards, gameFinished, pairsTryCount } = this.state;
+    const { cards, pairsTryCount } = this.state;
     let { currentPair } = this;
     let newPairsTryCount = pairsTryCount;
 
@@ -91,7 +91,6 @@ class MemoryGame extends Component {
         {gameFinished ? <p>Game Finished</p> : ""}
         <p>tries : {pairsTryCount}</p>
         <p>Seconds : {elapsedSeconds}</p>
-        {/* <img src="/images/mango.jpg" alt="" /> */}
       </>
     );
   }
