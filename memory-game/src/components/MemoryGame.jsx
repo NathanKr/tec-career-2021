@@ -1,5 +1,5 @@
 import { Component } from "react";
-const NUM_CARDS_IN_ROW = 2; // NUM_CARDS_IN_ROW x NUM_CARDS_IN_ROW
+//const NUM_CARDS_IN_ROW = 2; // NUM_CARDS_IN_ROW x NUM_CARDS_IN_ROW. todo use it
 
 class MemoryGame extends Component {
   state = {
