@@ -42,7 +42,7 @@ class MemoryGame extends Component {
 
     // ---- check before change
     if(clickCard.faceUp && (index === this.currentPair[0])){
-      // --- do allow change face down if before two cards
+      // --- do not allow change face down if only one card is faced up
       return ;
     }
 
