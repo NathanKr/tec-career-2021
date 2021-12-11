@@ -24,31 +24,41 @@ class MemoryGame extends Component {
     }, 1000);
   }
 
+
   isGameFinished = () => {
     return (
       this.state.cards.find((card) => card.pairMatched === false) === undefined
     );
   };
 
+  
+  
   clickHandler = (index) => {
-    const { cards, pairsTryCount } = this.state;
-    let { currentPair } = this;
-    let newPairsTryCount = pairsTryCount;
+    let newPairsTryCount = this.state.pairsTryCount;
 
     // --- handle card board
-    const newCards = [...cards];
+    const newCards = [...this.state.cards];
     const clickCard = newCards[index];
+
+    // ---- check before change
+    if(clickCard.faceUp && (index === this.currentPair[0])){
+      // --- do allow change face down if before two cards
+      return ;
+    }
+
     clickCard.faceUp = !clickCard.faceUp;
 
     // handle pairs
-    if (currentPair.length === 0 || currentPair.length === 1) {
-      currentPair.push(index);
+    if (this.currentPair.length === 0 || this.currentPair.length === 1) {
+      this.currentPair.push(index);
     }
 
-    if (currentPair.length === 2) {
+
+
+    if (this.currentPair.length === 2) {
       // --- check is pair
-      const card1 = newCards[currentPair[0]];
-      const card2 = newCards[currentPair[1]];
+      const card1 = newCards[this.currentPair[0]];
+      const card2 = newCards[this.currentPair[1]];
       if (card1.pair === card2.pair) {
         card1.pairMatched = true;
         card2.pairMatched = true;
@@ -58,8 +68,7 @@ class MemoryGame extends Component {
         newPairsTryCount++;
       }
 
-      // this will not work currentPair = [];
-      currentPair.length = 0; //  // get ready for new pair
+      this.currentPair = []; //  // get ready for new pair
     }
 
     if (this.isGameFinished()) {
@@ -72,6 +81,9 @@ class MemoryGame extends Component {
       pairsTryCount: newPairsTryCount,
     }); // lastly setState
   };
+
+
+
   render() {
     const { cards, gameFinished, pairsTryCount, elapsedSeconds } = this.state;
 
