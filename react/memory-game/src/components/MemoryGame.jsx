@@ -1,14 +1,17 @@
 import { Component } from "react";
+import CardObj from "../logic/CardObj";
 //const NUM_CARDS_IN_ROW = 2; // NUM_CARDS_IN_ROW x NUM_CARDS_IN_ROW. todo use it
 
 class MemoryGame extends Component {
   state = {
     cards: [
       //todo consider using function constructor
-      { pair: 0, faceUp: false, pairMatched: false },
-      { pair: 1, faceUp: false, pairMatched: false },
-      { pair: 0, faceUp: false, pairMatched: false },
-      { pair: 1, faceUp: false, pairMatched: false },
+      new CardObj(2, false, false),
+      new CardObj(1, false, false),
+      new CardObj(0, false, false),
+      new CardObj(1, false, false),
+      new CardObj(2, false, false),
+      new CardObj(0, false, false),
     ],
     gameFinished: false,
     pairsTryCount: 0,
@@ -24,16 +27,13 @@ class MemoryGame extends Component {
     }, 1000);
   }
 
-
   isGameFinished = () => {
     return (
       this.state.cards.find((card) => card.pairMatched === false) === undefined
     );
   };
 
-  
-  
-  clickHandler = (index) => {
+  cardClickHandler = (index) => {
     let newPairsTryCount = this.state.pairsTryCount;
 
     // --- handle card board
@@ -41,9 +41,9 @@ class MemoryGame extends Component {
     const clickCard = newCards[index];
 
     // ---- check before change
-    if(clickCard.faceUp && (index === this.currentPair[0])){
+    if (clickCard.faceUp && index === this.currentPair[0]) {
       // --- do not allow change face down if only one card is faced up
-      return ;
+      return;
     }
 
     clickCard.faceUp = !clickCard.faceUp;
@@ -52,8 +52,6 @@ class MemoryGame extends Component {
     if (this.currentPair.length === 0 || this.currentPair.length === 1) {
       this.currentPair.push(index);
     }
-
-
 
     if (this.currentPair.length === 2) {
       // --- check is pair
@@ -82,8 +80,6 @@ class MemoryGame extends Component {
     }); // lastly setState
   };
 
-
-
   render() {
     const { cards, gameFinished, pairsTryCount, elapsedSeconds } = this.state;
 
@@ -92,7 +88,7 @@ class MemoryGame extends Component {
       <button
         disabled={card.pairMatched}
         key={index}
-        onClick={() => this.clickHandler(index)}
+        onClick={() => this.cardClickHandler(index)}
       >
         {card.faceUp ? card.pair : "-"}
       </button>
